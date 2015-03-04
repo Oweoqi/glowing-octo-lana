@@ -20,5 +20,5 @@ while read host;do grep $host $ipr.txt;done < $ipr\_cleaned.txt >> $host.txt
 
 echo "Now we enum...\n"
 
-while read host;snmpcheck -t $host >> $host.txt; enum4linux $host >> $host.txt;done < $1
+while read host; do snmpcheck -t $host >> $host.txt; enum4linux $host >> $host.txt;done < $ipr\_cleaned.txt
 

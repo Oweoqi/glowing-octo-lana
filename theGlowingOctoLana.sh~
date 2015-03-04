@@ -10,7 +10,7 @@ sudo nmap -sP $ipr/$cidr -oG $ipr.txt
 
 echo "Cleaning up the list...\n"
 
-cat ./$ipr.txt | cat -d " " -f2 > $ipr\_cleaned.txt
+cat ./$ipr.txt | cut -d " " -f2 > $ipr\_cleaned.txt
 
 echo "Creating a mess of files...\n"
 
