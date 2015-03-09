@@ -5,7 +5,7 @@ cidr=$2
 
 if [ "$ipr" == "" ] || [ "$cidr" == "" ]
 then
-echo "No SUBNET or CIDR was entered, please re-run with: ./theGlowingOctoLana.sh <SUBNET> <CIDR>"
+echo -e "No SUBNET or CIDR was entered, please re-run with: ./theGlowingOctoLana.sh <SUBNET> <CIDR> \n"
 exit
 fi
 
@@ -21,17 +21,17 @@ cd $ipr
 
 nmap -sP $ipr/$cidr -oG $ipr.txt
 
-echo "Cleaning up the list...\n"
+echo -e "Cleaning up the list...\n"
 
-cat ./$ipr.txt | cut -d " " -f2 > $ipr\_cleaned.txt
+cat ./$ipr.txt | cut -d " " -f2 | sed '/Nmap/d' > $ipr\_cleaned.txt
 
-echo "Creating a mess of files...\n"
+echo -e "Creating a mess of files...\n"
 
 while read host;do touch $host.txt;done < $ipr\_cleaned.txt
 
 while read host;do grep $host $ipr.txt;done < $ipr\_cleaned.txt >> $host.txt
 
-echo "Now we enum...\n"
+echo -e "Now we enum...\n"
 
 while read host;do nmap -sV $host >> $host.txt; snmpcheck -t $host >> $host.txt; enum4linux $host >> $host.txt;done < $ipr\_cleaned.txt
 
