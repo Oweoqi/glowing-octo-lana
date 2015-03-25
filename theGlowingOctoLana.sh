@@ -34,7 +34,7 @@ while read host;do grep $host $ipr.txt;done < $ipr\_cleaned.txt >> $host.txt
 echo -e "Now we enum...\n"
 
 while read host;do 
-	nmap -sS -sC -sV --min-rate=400 --min-parallelism=512 -p1-65535 -n -Pn -PS --open $host >> $host.txt & 
+	nmap -sS -sC -sV -O --min-rate=400 --min-parallelism=512 -p1-65535 -n -Pn -PS --open $host >> $host.txt & 
 	snmpcheck -t $host >> $host.txt & 
 	enum4linux $host >> $host.txt &
 done < $ipr\_cleaned.txt
