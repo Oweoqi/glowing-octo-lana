@@ -4,9 +4,9 @@ ipr=$1
 cidr=$2
 
 echo -e "############################################################\n"
-echo -e "####                 The grand and powerful		 	 ####\n"
-echo -e "####					Glowing Octo Lana!		         ####\n"
-echo -e "####       						 					 ####\n"
+echo -e "####                 The grand and powerful	 	 ####\n"
+echo -e "####		        Glowing Octo Lana!	         ####\n"
+echo -e "####       						 ####\n"
 echo -e "####          Watcher of all, finder of...things?       ####\n"
 echo -e "############################################################\n"
 
