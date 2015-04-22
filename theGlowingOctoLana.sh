@@ -43,7 +43,7 @@ echo -e "Now we enum...\n"
 
 while read host;do
 	echo -e "Scanning $host\n"
-	nmap --max_rtt_timeout 10000ms --min_hostgroup 20 -sC -sV -O -T 4 -p1-65535 -n -Pn -PS -A --open $host >> $host.txt
+	nmap -sS -sC -sV -O --min-rate=400 --min-parallelism=512 -p- -n -Pn -PS -A --open $host >> $host.txt
 	samrdump.py $host >> $host.txt
 	snmpcheck-nothink -t $host >> $host.txt
 	onesixtyone $host >> $host.txt
