@@ -3,12 +3,12 @@
 ipr=$1
 cidr=$2
 
-echo -e "############################################################\n"
-echo -e "####                 The grand and powerful		 	 ####\n"
-echo -e "####					Glowing Octo Lana!		         ####\n"
-echo -e "####       						 					 ####\n"
-echo -e "####          Watcher of all, finder of...things?       ####\n"
-echo -e "############################################################\n"
+echo -e "###################################################\n"
+echo -e "####		The grand and powerful				####\n"
+echo -e "####		Glowing Octo Lana!					####\n"
+echo -e "####											####\n"
+echo -e "####	Watcher of all, finder of...things?		####\n"
+echo -e "###################################################\n"
 
 if [ "$ipr" == "" ] || [ "$cidr" == "" ]
 then
@@ -17,7 +17,7 @@ exit
 fi
 
 # Check to ensure the script is run as root/sudo
-if [ "$(id -u)" != "0" ]; 
+if [ "$(id -u)" != "0" ];
 then
 echo "This script must be run as root. Later hater." 1>&2
 exit 1
@@ -43,11 +43,11 @@ echo -e "Now we enum...\n"
 
 while read host;do
 	echo -e "Scanning $host\n"
-	nmap -sS -sC -sV -O -T 4 -p1-65535 -n -Pn -PS -A -vv --open $host >> $host.txt
+	nmap --max_rtt_timeout 10000ms --min_hostgroup 20 -sC -sV -O -T 4 -p1-65535 -n -Pn -PS -A --open $host >> $host.txt
 	samrdump.py $host >> $host.txt
 	snmpcheck-nothink -t $host >> $host.txt
 	onesixtyone $host >> $host.txt
-	snmpwalk -c public -v1 $host.txt >> $host.txt
+	snmpwalk -c public -v1 $host >> $host.txt
 	enum4linux $host >> $host.txt
 done < $ipr.txt
 
@@ -78,10 +78,10 @@ done < ssh_service_cleaned.txt
 
 # Dumping ground for random ideas.
 # ================================
-# 
-# 
+#
+#
 # grep "25/tcp" *.txt > smtp_servers.txt
-# 
+#
 # echo "slmail" | { read test; searchsploit $test; }
-# 
-# 
+#
+#
