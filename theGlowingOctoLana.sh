@@ -44,8 +44,8 @@ echo -e "Now we enum...\n"
 while read host;do
 	echo -e "Scanning $host\n"
 	nmap -sS -sC -sV -O --min-rate=400 --min-parallelism=512 -p- -n -Pn -PS -A --open $host >> $host.txt
-	samrdump.py $host >> $host.txt
-	snmpcheck-nothink -t $host >> $host.txt
+	samrdump2 $host >> $host.txt
+	snmpcheck -t $host >> $host.txt
 	onesixtyone $host >> $host.txt
 	snmpwalk -c public -v1 $host >> $host.txt
 	enum4linux $host >> $host.txt
@@ -63,7 +63,7 @@ while read host;do
 	dirbuster-ng $host >> $host.txt
 done < eyewitness.lst
 
-EyeWitness.py --no-dns -f eyewitness.lst -d /tmp/$ipr\_webservers
+eyeWitness --no-dns -f eyewitness.lst -d /tmp/$ipr\_webservers
 
 cp /tmp/$ipr\_webservers ./$ipr\_webservers
 
