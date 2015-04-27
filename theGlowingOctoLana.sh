@@ -44,7 +44,7 @@ echo -e "Now we enum...\n"
 while read host;do
 	echo -e "Scanning $host\n"
 	nmap -sS -sC -sV -O --min-rate=400 --min-parallelism=512 -p- -n -Pn -PS -A --open $host >> $host.txt
-	samrdump2 $host >> $host.txt
+	samdump2 $host >> $host.txt
 	snmpcheck -t $host >> $host.txt
 	onesixtyone $host >> $host.txt
 	snmpwalk -c public -v1 $host >> $host.txt
@@ -52,7 +52,7 @@ while read host;do
 done < $ipr.txt
 
 cd ..
-chown -hR $whoami:$whoami /u $ipr
+chown -hR $whoami:$whoami $ipr
 cd $ipr
 
 echo -e "Making a list of HTTP servers for the screenshoting...\n"
@@ -60,10 +60,10 @@ echo -e "Making a list of HTTP servers for the screenshoting...\n"
 grep "80/tcp\|8000/tcp\|443/tcp\|8443/tcp\|8080/tcp" *.txt > webservers.txt && cat webservers.txt | cut -d "/" -f1 | sed 's/.txt//' > eyewitness.lst
 
 while read host;do
-	dirbuster-ng $host >> $host.txt
+	dirb $host >> $host.txt
 done < eyewitness.lst
 
-eyeWitness --no-dns -f eyewitness.lst -d /tmp/$ipr\_webservers
+eyewitness --no-dns -f eyewitness.lst -d /tmp/$ipr\_webservers
 
 cp /tmp/$ipr\_webservers ./$ipr\_webservers
 
